@@ -2,6 +2,7 @@ package fr.menus;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
@@ -20,6 +21,7 @@ public class MainMenu extends Menu {
 			System.out.println("main menu couldn't be loaded");
 		}
 		items.add("Play");
+		items.add("Scores");
 		items.add("Help");
 		items.add("Options");
 		items.add("Credits");
@@ -49,11 +51,18 @@ public class MainMenu extends Menu {
 		switch (selection){
 		case 0:
 			game.addState(new World());
+			game.addState(new QuestionMenu());
+			game.addState(new BadAnswer());
+			game.addState(new GoodAnswer());
 			game.enterState(World.ID, new FadeOutTransition(),
 					new FadeInTransition());
 			World.reset();
 			break;
 		case 1:
+			game.enterState(ScoreMenu.ID, new FadeOutTransition(),
+					new FadeInTransition());
+			break;
+		case 2:
 			game.addState(new HelpMenu());
 			game.enterState(HelpMenu.ID, new FadeOutTransition(),
 					new FadeInTransition());
@@ -66,6 +75,9 @@ public class MainMenu extends Menu {
 			break;
 
 		}
+	}
+	public static StateBasedGame getGame(){
+		return game;
 	}
 
 }

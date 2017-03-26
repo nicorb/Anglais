@@ -9,7 +9,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import fr.bonus.Clue;
 import fr.entities.characters.Player;
 import fr.world.World;
 
@@ -20,7 +19,7 @@ public class QuestionMenu extends Menu{
 	public static int ID=3;
 	private String[] datas;
 	private boolean questionSeen;
-	private int question,tailleBDD;
+	private int question;
 	private static ArrayList<Integer> clues;
 
 	public QuestionMenu(){
@@ -28,10 +27,7 @@ public class QuestionMenu extends Menu{
 		questionSeen=false;
 		margeMoins = 300;
 		margePlus=500;
-		this.menuTitle="QUESTION TIME !!!";
-		items=new ArrayList<String>();
-		datas=new String[10];
-		datas = fr.database.SQLiteJDBC.search(1);
+		
 
 		try {
 			background=new Image("sprites/main_menu.png");
@@ -45,19 +41,23 @@ public class QuestionMenu extends Menu{
 		this.container = container;
 		this.game = game;
 		container.setShowFPS(false);
-		//question = Math.floor(Math.random()*tailleBDD)+1;
-		question=1;
 
 	}
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		question=fr.world.World.getQuestion();
+		this.menuTitle="QUESTION TIME !!!";
+		items=new ArrayList<String>();
+		datas=new String[10];
+		datas = fr.database.SQLiteJDBC.search(question);
 		items.add(datas[1]);
 		for(int i=3;i<6;i++){
 			if(clues.contains(i-2)){
 				items.add(datas[i]);
 			}
 		}
+		BadAnswer.setAnswer(datas[5+Integer.parseInt(datas[2])]);
 	}
 
 	@Override
@@ -73,14 +73,14 @@ public class QuestionMenu extends Menu{
 		}else{
 			if(selection==Integer.parseInt(datas[2])){
 				World.upScore(1000);
-				World.setNextScore(World.getScore()+5000);
+				World.setNextScore(World.getScore()+8000);
 				items=new ArrayList<String>();
-				game.enterState(World.ID, new FadeOutTransition(), new FadeInTransition());
+				game.enterState(GoodAnswer.ID, new FadeOutTransition(), new FadeInTransition());
 			}else {
 				World.upScore(-500);
 				World.setNextScore(World.getScore()+5000);
 				questionSeen=!questionSeen;
-				game.enterState(World.ID, new FadeOutTransition(), new FadeInTransition());
+				game.enterState(BadAnswer.ID, new FadeOutTransition(), new FadeInTransition());
 				items=new ArrayList<String>();
 			}
 

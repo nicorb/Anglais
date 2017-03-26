@@ -27,7 +27,7 @@ public abstract class Menu extends BasicGameState {
 	protected int selection;
 
 	protected GameContainer container;
-	protected StateBasedGame game;
+	protected static StateBasedGame game;
 	protected long time;
 
 
@@ -53,7 +53,6 @@ public abstract class Menu extends BasicGameState {
 		}
 		if(items.size()>1){
 			g.drawString(">>>", Game.longueur/2-margeMoins-50, 250+50*selection);
-			g.drawString("<<<", Game.longueur/2+margePlus, 250+50*selection);
 		}
 		g.drawString(""+selection, 1240, 700);
 	}

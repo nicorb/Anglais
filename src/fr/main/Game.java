@@ -1,17 +1,16 @@
 package fr.main;
 
 
-import java.io.File;
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import fr.menus.HelpMenu;
+import fr.menus.BadAnswer;
+import fr.menus.GoodAnswer;
 import fr.menus.MainMenu;
 import fr.menus.QuestionMenu;
-import fr.world.World;
+import fr.menus.ScoreMenu;
 
 
 public class Game extends StateBasedGame {
@@ -45,7 +44,7 @@ public class Game extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		addState(new MainMenu());
-		addState(new QuestionMenu());
+		addState(new ScoreMenu(this));
 	    this.enterState(MainMenu.ID);
 	    
 	}

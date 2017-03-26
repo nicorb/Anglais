@@ -4,6 +4,8 @@ import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 
+import fr.utils.Score;
+
 public class SQLiteJDBC {
 
 	// Accéder à la BD
@@ -64,9 +66,9 @@ public class SQLiteJDBC {
 	}
 
 
-	public static void main( String args[]){
+	/*public static void main( String args[]){
 		initializeTables();
-	}
+	}*/
 
 	public static String[] search(int ID){
 		Connection c = null;
@@ -91,8 +93,51 @@ public class SQLiteJDBC {
 			System.out.println("Couldn't load the database");
 		}
 		return result;
-
 	}
-
+	
+	public static void addScore(int score,String name){
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:datas.db");
+			stmt=c.createStatement();
+			stmt.executeUpdate("INSERT INTO SCORE(Name,Score) VALUES ('"+name+"',"+score+")");
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+			System.out.println("Couldn't load the database");
+		}
+	}
+	
+	public static ArrayList<Score> getScore(){
+		Connection c = null;
+		Statement stmt = null;
+		ArrayList<Score> result=new ArrayList<Score>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:datas.db");
+			stmt=c.createStatement();
+			ResultSet rs=stmt.executeQuery("SELECT * FROM SCORE ORDER BY Score DESC");
+			
+			while(rs.next()){
+				Score a=new Score();
+				a.setName(rs.getString(2));
+				a.setScore(rs.getInt(3));
+				result.add(a);
+				if (result.size()==10)
+					return result;
+			}
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+			System.out.println("Couldn't load the database");
+		}
+		return result;
+	}
 
 }

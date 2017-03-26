@@ -72,7 +72,7 @@ public class Player extends Movable{
 		}
 		if(life<=0){
 			fr.menus.QuestionMenu.setClues(this);
-			game.enterState(MainMenu.ID, new FadeOutTransition(), new FadeInTransition());
+			fr.menus.ScorePopUp.main(fr.world.World.getScore(), null);
 		}
 		if(System.currentTimeMillis()-lastShot>time)
 			fr.world.World.add(new Projectile(x+radius,y+radius,2,0,-1,true));

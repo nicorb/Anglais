@@ -26,6 +26,8 @@ import fr.menus.QuestionMenu;
 
 public class World extends BasicGameState{
 
+	private static int question;
+	private int tailleBDD=3;
 	public enum direction {HAUT,DROITE,BAS,GAUCHE};
 	private static Player player;
 	public static int ID=0;
@@ -47,13 +49,20 @@ public class World extends BasicGameState{
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		reset();
-		
+		this.game=arg1;
 	}
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game){
+		k=1;
+		question=(int) (Math.floor(Math.random()*tailleBDD)+1);
 		pause=false;
 		enemyGen.add(new EnemyGenerator(3,1300,-20,2000));
+		enemyGen.add(new EnemyGenerator(1,1200,500,1500));
+		for (int i=0;i<3;i++){
+			enemyGen.add(new EnemyGenerator(2,1300+i*60,0+i*90,3000));
+			enemyGen.add(new EnemyGenerator(2,-50-i*100,0+i*90,3000));
+		}
 	}
 	
 	@Override
@@ -63,7 +72,7 @@ public class World extends BasicGameState{
 
 	public static void reset(){
 		decor = new Decor(1);
-		nextScore=5000;
+		nextScore=7000;
 		player = new Player(400, 400, 10);
 		score= 0;
 		projectiles=new ArrayList<Projectile>();
@@ -71,11 +80,7 @@ public class World extends BasicGameState{
 		enemies=new ArrayList<Enemy>();
 		enemyGen=new ArrayList<EnemyGenerator>();
 		
-		enemyGen.add(new EnemyGenerator(1,1200,500,1500));
-		for (int i=0;i<3;i++){
-			enemyGen.add(new EnemyGenerator(2,1300+i*60,0+i*90,3000));
-			enemyGen.add(new EnemyGenerator(2,-50-i*100,0+i*90,3000));
-		}
+		
 		pause=false;
 		k=1;
 	}
@@ -136,8 +141,16 @@ public class World extends BasicGameState{
 			
 
 
-			if(score>k*1500){
-				clues.add(new Clue((float) (Math.random()*1000+100),-50,(int) Math.round(Math.random()*3)+1));
+			if(score > nextScore-6000 && k==1){
+				clues.add(new Clue((float) (Math.random()*1000+100),-50,1));
+				k+=1;
+			}
+			if(score > nextScore-4000 && k==2){
+				clues.add(new Clue((float) (Math.random()*1000+100),-50,2));
+				k+=1;
+			}
+			if(score > nextScore-2000 && k==3){
+				clues.add(new Clue((float) (Math.random()*1000+100),-50,3));
 				k+=1;
 			}
 
@@ -199,5 +212,10 @@ public class World extends BasicGameState{
 		nextScore=i;
 	}
 
-
+	public static int getQuestion(){
+		return question;
+	}
+	public static StateBasedGame getGame(){
+		return game;
+	}
 }
