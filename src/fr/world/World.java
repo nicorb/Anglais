@@ -43,8 +43,8 @@ public class World extends BasicGameState{
 	private static int score;
 	public static Music Mbackground;
 	public static Music MMenu;
-	private static int k;//k pour faire tomber les Clues et a pour saovir s'il faut afficher une question
-	private static int nextScore;
+	private static int k,nextScore;//k pour faire tomber les Clues et a pour saovir s'il faut afficher une question
+	private static int numPlayer;
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
@@ -217,5 +217,8 @@ public class World extends BasicGameState{
 	}
 	public static StateBasedGame getGame(){
 		return game;
+	}
+	public static void setPlayer(int i) throws SlickException{
+		player.setImage(i);
 	}
 }

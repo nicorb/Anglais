@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import fr.menus.BadAnswer;
+import fr.menus.ChooseShip;
 import fr.menus.GoodAnswer;
 import fr.menus.MainMenu;
 import fr.menus.QuestionMenu;

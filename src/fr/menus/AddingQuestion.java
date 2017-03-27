@@ -68,6 +68,7 @@ public class AddingQuestion extends Application {
         final TextField ans2 = new TextField();
         final TextField ans3 = new TextField();
         final TextField ans4 = new TextField();
+        final TextField context = new TextField();
         final ListView<String> realAns = new ListView<String>();
         ObservableList<String> oui=FXCollections.observableArrayList ("1", "2", "3", "4");
         double barX=primaryScreenBounds.getWidth()*45/100;
@@ -120,6 +121,10 @@ public class AddingQuestion extends Application {
         t8.setLayoutX(primaryScreenBounds.getWidth()*55/100-10);
         t8.setLayoutY(primaryScreenBounds.getHeight()*7/10+barY*2/3);
         
+        t8.setText("Justification:");
+        t8.setLayoutX(primaryScreenBounds.getWidth()*12/100);
+        t8.setLayoutY(primaryScreenBounds.getHeight()*84/100);
+        
         
         
         //Property of searchbars and button
@@ -158,6 +163,10 @@ public class AddingQuestion extends Application {
         ans4.setLayoutY(primaryScreenBounds.getHeight()*7/10);
         ans4.setPrefSize(barX - 15, barY - 15);
         
+        context.setLayoutX(primaryScreenBounds.getWidth()*1/5);
+        context.setLayoutY(primaryScreenBounds.getHeight()*8/10);
+        context.setPrefSize( primaryScreenBounds.getWidth()*3/5, barY-15);
+        
         
         button.setLayoutX(primaryScreenBounds.getWidth()/2-buttonSizeX/2);
         button.setLayoutY(primaryScreenBounds.getHeight()*9/10);
@@ -168,7 +177,7 @@ public class AddingQuestion extends Application {
             public void handle(ActionEvent event) {
 
                 try{
-                	if(fr.database.SQLiteJDBC.addQuestion(question.getText(),Integer.parseInt(realAns.getSelectionModel().getSelectedItem()), clue1.getText(), clue2.getText(), clue3.getText(), ans1.getText(), ans2.getText(), ans3.getText(),ans4.getText())!=0){
+                	if(fr.database.SQLiteJDBC.addQuestion(question.getText(),Integer.parseInt(realAns.getSelectionModel().getSelectedItem()), clue1.getText(), clue2.getText(), clue3.getText(), ans1.getText(), ans2.getText(), ans3.getText(),ans4.getText(),context.getText())!=0){
                 	image.setImage(wrong);
                 	}else{
                 		image.setImage(correct);
@@ -190,6 +199,7 @@ public class AddingQuestion extends Application {
         searchBars.add(clue2);
         searchBars.add(clue3);
         searchBars.add(question);
+        searchBars.add(context);
         
         texts.add(t4);
         texts.add(t);

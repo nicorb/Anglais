@@ -49,7 +49,7 @@ public class QuestionMenu extends Menu{
 		question=fr.world.World.getQuestion();
 		this.menuTitle="QUESTION TIME !!!";
 		items=new ArrayList<String>();
-		datas=new String[10];
+		//datas=new String[11];
 		datas = fr.database.SQLiteJDBC.search(question);
 		items.add(datas[1]);
 		for(int i=3;i<6;i++){
@@ -58,6 +58,7 @@ public class QuestionMenu extends Menu{
 			}
 		}
 		BadAnswer.setAnswer(datas[5+Integer.parseInt(datas[2])]);
+		BadAnswer.setContext(datas[11]);
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import fr.world.World;
 
 public class BadAnswer extends Menu{
 
-	private static String answer;
+	private static String answer,context;
 	public static int ID=4;
 	
 	public BadAnswer(){
@@ -27,6 +27,9 @@ public class BadAnswer extends Menu{
 	public static void setAnswer(String s){
 		answer=s;
 	}
+	public static void setContext(String s){
+		context=s;
+	}
 	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
@@ -36,6 +39,7 @@ public class BadAnswer extends Menu{
 			System.out.println("main menu couldn't be loaded");
 		}
 		items.add("This is a bad answer...The good one was "+answer);
+		items.add(context);
 		items.add("You just lost 1000 pts");
 	}
 	

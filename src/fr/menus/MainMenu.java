@@ -50,11 +50,11 @@ public class MainMenu extends Menu {
 	void execOption() {
 		switch (selection){
 		case 0:
-			game.addState(new World());
 			game.addState(new QuestionMenu());
 			game.addState(new BadAnswer());
 			game.addState(new GoodAnswer());
-			game.enterState(World.ID, new FadeOutTransition(),
+			game.addState(new ChooseShip());
+			game.enterState(ChooseShip.ID, new FadeOutTransition(),
 					new FadeInTransition());
 			World.reset();
 			break;
@@ -71,6 +71,9 @@ public class MainMenu extends Menu {
 			fr.menus.AddingQuestion.main(null);
 			break;
 		case 5:
+			fr.menus.AddingQuestion.main(null);;
+			break;
+		case 6:
 			System.exit(0);
 			break;
 

@@ -20,7 +20,7 @@ public class SQLiteJDBC {
 		}
 	}
 
-	public static int addQuestion(String question,int answer,String clue1,String clue2,String clue3,String prop1,String prop2,String prop3,String prop4){
+	public static int addQuestion(String question,int answer,String clue1,String clue2,String clue3,String prop1,String prop2,String prop3,String prop4,String context){
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -32,7 +32,7 @@ public class SQLiteJDBC {
 			return 2;
 			}catch(Exception e){}
 			stmt = c.createStatement();
-			String sql ="INSERT INTO QUESTIONS (QUESTION,ANSWER,CLUE1,CLUE2,CLUE3,PROPOSITION1,PROPOSITION2,PROPOSITION3,PROPOSITION4) VALUES ('"+question+"',"+answer+",'"+clue1+"','"+clue2+"','"+clue3+"','"+prop1+"','"+prop2+"','"+prop3+"','"+prop4+"')";
+			String sql ="INSERT INTO QUESTIONS (QUESTION,ANSWER,CLUE1,CLUE2,CLUE3,PROPOSITION1,PROPOSITION2,PROPOSITION3,PROPOSITION4,CONTEXT) VALUES ('"+question+"',"+answer+",'"+clue1+"','"+clue2+"','"+clue3+"','"+prop1+"','"+prop2+"','"+prop3+"','"+prop4+"','"+context+"')";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();
@@ -74,13 +74,13 @@ public class SQLiteJDBC {
 		Connection c = null;
 		Statement stmt = null;
 
-		String[] result = new String[10];
+		String[] result = new String[12];
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:datas.db");
 			stmt=c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM QUESTIONS WHERE ID="+ID);
-			for (int i=1;i<10;i++){
+			for (int i=1;i<12;i++){
 				result[i]=rs.getString(i);
 			}
 

@@ -25,7 +25,6 @@ public class Player extends Movable{
 
 
 	private float radius;//for the hitbox
-	private float height,width;// position of the image 
 	private ArrayList<Integer> numClue;
 	private int life;
 	private boolean downPress,upPress,rightPress,leftPress,hautbas,droitegauche;
@@ -184,6 +183,10 @@ public class Player extends Movable{
 		hautbas=false;
 		droitegauche=false;
 		numClue=new ArrayList<Integer>();
+	}
+	
+	public void setImage(int i) throws SlickException{
+		skin=new Image("sprites/Vaisseau"+i+".png");
 	}
 
 }
