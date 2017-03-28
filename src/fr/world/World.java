@@ -50,6 +50,7 @@ public class World extends BasicGameState{
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		reset();
 		this.game=arg1;
+		tailleBDD=fr.database.SQLiteJDBC.tailleBDD();
 	}
 
 	@Override

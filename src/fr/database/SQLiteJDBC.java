@@ -139,5 +139,28 @@ public class SQLiteJDBC {
 		}
 		return result;
 	}
+	
+	public static int tailleBDD(){
+		Connection c = null;
+		Statement stmt = null;
+		int a=0;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:datas.db");
+			stmt=c.createStatement();
+			ResultSet rs=stmt.executeQuery("SELECT * FROM QUESTIONS");
+			
+			while(rs.next()){
+				a++;
+			}
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+			System.out.println("Couldn't load the database");
+		}
+		return a;
+	}
 
 }
