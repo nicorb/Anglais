@@ -127,7 +127,7 @@ public class SQLiteJDBC {
 				a.setName(rs.getString(2));
 				a.setScore(rs.getInt(3));
 				result.add(a);
-				if (result.size()==10)
+				if (result.size()==5)
 					return result;
 			}
 			stmt.close();

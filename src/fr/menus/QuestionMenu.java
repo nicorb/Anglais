@@ -14,7 +14,6 @@ import fr.world.World;
 
 public class QuestionMenu extends Menu{
 
-	//question,answer,7clue
 
 	public static int ID=3;
 	private String[] datas;
@@ -72,6 +71,7 @@ public class QuestionMenu extends Menu{
 				items.remove(1);
 			}
 		}else{
+			questionSeen=false;
 			if(selection==Integer.parseInt(datas[2])){
 				World.upScore(1000);
 				World.setNextScore(World.getScore()+8000);
