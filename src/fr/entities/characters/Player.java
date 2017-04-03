@@ -47,14 +47,10 @@ public class Player extends Movable{
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		g.setColor(Color.green);
 		g.drawImage(skin, x-skin.getWidth()/2+radius, y-skin.getHeight()/2+radius);
-		g.fillOval(x, y, 2*this.radius, 2*this.radius);
-		g.drawString("clues= "+numClue, 20, 620);
-		g.drawString("life= "+life, 20, 640);
-		g.drawString("radius= "+radius, 20, 660);
-		g.drawString("CenterX= "+(x+radius), 20, 680);
-		g.drawString("CenterY= "+(y+radius), 20, 700);
+		for (int i=0;i<life;i++){
+			g.drawImage(skin, 10+i*(skin.getWidth()+10), 10);
+		}
 	}
 
 	@Override

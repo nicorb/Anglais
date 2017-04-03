@@ -25,6 +25,5 @@ public class DrunkEnemy extends Enemy{
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		super.render(container, game, g);
-		g.drawString("bounour", 1230, 10);
 	}
 }

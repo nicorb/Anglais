@@ -1,7 +1,9 @@
 package fr.menus;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
@@ -13,7 +15,6 @@ public class GoodAnswer extends Menu{
 	
 	public GoodAnswer(){
 		super();
-		menuTitle= "Good Answer";
 		
 		items.add("You just earned 1000 pts");
 		margeMoins=50;
@@ -24,6 +25,12 @@ public class GoodAnswer extends Menu{
 			System.out.println("main menu couldn't be loaded");
 		}
 		
+	}
+	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		super.enter(container, game);
+		titre="Good Answer";
 	}
 
 	@Override

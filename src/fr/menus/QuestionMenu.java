@@ -20,14 +20,13 @@ public class QuestionMenu extends Menu{
 	private boolean questionSeen;
 	private int question;
 	private static ArrayList<Integer> clues;
-
+	
+	
 	public QuestionMenu(){
 		super();
 		questionSeen=false;
 		margeMoins = 300;
 		margePlus=500;
-		
-
 		try {
 			background=new Image("sprites/main_menu.png");
 		} catch (SlickException e) {
@@ -45,8 +44,9 @@ public class QuestionMenu extends Menu{
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		super.enter(container, game);
+		titre="QUESTION TIME !!!";
 		question=fr.world.World.getQuestion();
-		this.menuTitle="QUESTION TIME !!!";
 		items=new ArrayList<String>();
 		//datas=new String[11];
 		datas = fr.database.SQLiteJDBC.search(question);

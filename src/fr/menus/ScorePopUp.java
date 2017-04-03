@@ -1,6 +1,7 @@
 package fr.menus;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import fr.main.Game;
 import fr.utils.Score;
@@ -80,12 +81,16 @@ public class ScorePopUp extends Application {
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				ArrayList<Score> scores = fr.database.SQLiteJDBC.getScore();
-				if (scores.size()==10){
-					if(score>scores.get(9).getScore()){
-						for(int i=1;i<10;i++){
-							if(score<scores.get(9-i).getScore()){
-								fr.database.SQLiteJDBC.addScore(score, name.getText());
-							}
+				if (scores.size()==5){
+					if(score>scores.get(4).getScore()){
+						scores.get(4).setName(name.getText());
+						scores.get(4).setScore(score);
+						try {
+							System.out.println("oui");
+							fr.database.SQLiteJDBC.setScores(scores);
+						} catch (ClassNotFoundException | SQLException e) {
+							System.out.println("non");
+							e.printStackTrace();
 						}
 					}
 				}else{

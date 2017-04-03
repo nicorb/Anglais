@@ -1,6 +1,7 @@
 package fr.menus;
 
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
@@ -8,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -29,6 +31,8 @@ public abstract class Menu extends BasicGameState {
 	protected GameContainer container;
 	protected static StateBasedGame game;
 	protected long time;
+	protected String titre;
+	protected TrueTypeFont fontTitrePrincipal,fontPhrases;
 
 
 	public Menu(){
@@ -40,21 +44,29 @@ public abstract class Menu extends BasicGameState {
 		this.container = container;
 		this.game = game;
 		container.setShowFPS(false);
-
+	}
+	
+	@Override
+	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+		setFontTitrePrincipal("font/gemina3dital.ttf",Font.BOLD,40,false);
+		fontPhrases=fr.utils.FontUtils.chargerFont("font/neuropol.ttf",Font.BOLD,20,false);
 	}
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
 		g.drawImage(background, 0, 0);
-		g.drawString(menuTitle, Game.longueur/2-100, 50);
+		
+		g.setFont(fontPhrases);
 		for (int i=0;i<items.size();i++){
-			g.drawString(items.get(i),Game.longueur/2-margeMoins, 250+50*i);
+			g.drawString(items.get(i),(Game.longueur-1*fontPhrases.getWidth(items.get(i)))/2, 250+50*i);
 			
+			if((items.size()>1)&&(selection==i)){
+				g.drawString(">>>", (Game.longueur-fontPhrases.getWidth(items.get(i)))/2-fontPhrases.getWidth(">>>"), 250+50*selection);
+			}
 		}
-		if(items.size()>1){
-			g.drawString(">>>", Game.longueur/2-margeMoins-50, 250+50*selection);
-		}
-		g.drawString(""+selection, 1240, 700);
+		
+		g.setFont(fontTitrePrincipal);
+		g.drawString(titre,(Game.longueur-fontTitrePrincipal.getWidth(titre))/2 , 70);
 	}
 
 
@@ -92,5 +104,9 @@ public abstract class Menu extends BasicGameState {
 	}
 
 	abstract void execOption();
+	
+	public void setFontTitrePrincipal(String name, int type, int size, boolean isSystemFont) {
+		fontTitrePrincipal=fr.utils.FontUtils.chargerFont(name,type,size,isSystemFont);
+	}
 
 }

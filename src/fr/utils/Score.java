@@ -1,7 +1,7 @@
 package fr.utils;
 
 public class Score {
-	private int score;
+	private int score,id;
 	private String name;
 	
 	public Score(){
@@ -22,5 +22,13 @@ public class Score {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

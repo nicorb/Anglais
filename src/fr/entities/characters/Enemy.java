@@ -33,9 +33,7 @@ public class Enemy extends Movable {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		g.setColor(Color.blue);
 		g.drawImage(img, x-img.getWidth()/2+radius, y-img.getHeight()/2+radius);
-		//g.fillOval((float)x,(float)y,(float)2*radius,(float)2*radius);
 	}
 
 	@Override

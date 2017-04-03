@@ -1,5 +1,6 @@
 package fr.menus;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -11,10 +12,17 @@ import fr.world.World;
 public class MainMenu extends Menu {
 
 	public static int ID=1;
-
+	
+	
 	public MainMenu(){
 		super();
-		menuTitle= "MAIN MENU";
+		
+	}
+
+	@Override
+	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+		
+		titre= "MAIN MENU";
 		try {
 			background=new Image("sprites/main_menu.png");
 		} catch (SlickException e) {
@@ -29,9 +37,8 @@ public class MainMenu extends Menu {
 		items.add("Quit");
 		margeMoins=50;
 		margePlus=100;
+
 	}
-
-
 
 
 
@@ -67,11 +74,12 @@ public class MainMenu extends Menu {
 			game.enterState(HelpMenu.ID, new FadeOutTransition(),
 					new FadeInTransition());
 			break;
-		case 4:
-			fr.menus.AddingQuestion.main(null);
-			break;
 		case 5:
-			fr.menus.AddingQuestion.main(null);;
+			try{
+				fr.menus.AddingQuestion.main(null);;
+			}catch(Exception e){
+				fr.menus.AddingQuestion.main(null);
+			}
 			break;
 		case 6:
 			System.exit(0);

@@ -25,18 +25,24 @@ public class ScoreMenu extends Menu{
 		} catch (SlickException e) {
 			System.out.println("main menu couldn't be loaded");
 		}
-		menuTitle="SCORES";
+		titre="SCORES";
 		margeMoins=150;
 	}
 
 	
-	
+	@Override
+	public void init(GameContainer container, StateBasedGame game){
+		titre="SCORES";
+	}
 
 	@Override
-	public void enter(GameContainer container, StateBasedGame game){
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException{
+		super.enter(container, game);
+		titre="SCORES";
 		scores=fr.database.SQLiteJDBC.getScore();
+		items=new ArrayList<String>();
 		for (int i=0;i<scores.size();i++){
-			items.add((i+1)+":"+scores.get(i).getName()+" , "+scores.get(i).getScore()+"pts");
+			items.add((i+1)+": "+scores.get(i).getName()+" , "+scores.get(i).getScore()+"pts");
 		}
 
 

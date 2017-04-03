@@ -94,7 +94,7 @@ public class SQLiteJDBC {
 		}
 		return result;
 	}
-	
+
 	public static void addScore(int score,String name){
 		Connection c = null;
 		Statement stmt = null;
@@ -111,7 +111,7 @@ public class SQLiteJDBC {
 			System.out.println("Couldn't load the database");
 		}
 	}
-	
+
 	public static ArrayList<Score> getScore(){
 		Connection c = null;
 		Statement stmt = null;
@@ -121,14 +121,18 @@ public class SQLiteJDBC {
 			c = DriverManager.getConnection("jdbc:sqlite:datas.db");
 			stmt=c.createStatement();
 			ResultSet rs=stmt.executeQuery("SELECT * FROM SCORE ORDER BY Score DESC");
-			
+
 			while(rs.next()){
 				Score a=new Score();
+				a.setId(rs.getInt(1));
 				a.setName(rs.getString(2));
 				a.setScore(rs.getInt(3));
 				result.add(a);
-				if (result.size()==5)
+				if (result.size()==5){
+					stmt.close();
+					c.close();
 					return result;
+				}
 			}
 			stmt.close();
 			c.close();
@@ -139,7 +143,7 @@ public class SQLiteJDBC {
 		}
 		return result;
 	}
-	
+
 	public static int tailleBDD(){
 		Connection c = null;
 		Statement stmt = null;
@@ -149,7 +153,7 @@ public class SQLiteJDBC {
 			c = DriverManager.getConnection("jdbc:sqlite:datas.db");
 			stmt=c.createStatement();
 			ResultSet rs=stmt.executeQuery("SELECT * FROM QUESTIONS");
-			
+
 			while(rs.next()){
 				a++;
 			}
@@ -161,6 +165,23 @@ public class SQLiteJDBC {
 			System.out.println("Couldn't load the database");
 		}
 		return a;
+	}
+
+	public static void setScores(ArrayList<Score> scores) throws SQLException, ClassNotFoundException{
+		Connection c = null;
+		Statement stmt = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:datas.db");
+		stmt=c.createStatement();
+		for (int i=0;i<scores.size();i++){
+			try{
+				stmt.executeUpdate("UPDATE FROM SCORE WHERE ScoreID="+scores.get(i).getId()+"SET Name='"+scores.get(i).getName()+"', Score="+scores.get(i).getScore());
+			}catch(Exception e){
+				stmt.executeUpdate("INSERT INTO SCORE(Name,Score) VALUES ('"+scores.get(i).getName()+"',"+scores.get(i).getScore()+")");
+			}
+		}
+		stmt.close();
+		c.close();
 	}
 
 }

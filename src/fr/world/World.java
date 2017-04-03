@@ -1,5 +1,6 @@
 package fr.world;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
@@ -8,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -19,6 +21,7 @@ import fr.entities.Projectile;
 import fr.entities.characters.Enemy;
 import fr.entities.characters.EnemyGenerator;
 import fr.entities.characters.Player;
+import fr.main.Game;
 import fr.menus.MainMenu;
 import fr.menus.QuestionMenu;
 
@@ -45,6 +48,7 @@ public class World extends BasicGameState{
 	public static Music MMenu;
 	private static int k,nextScore;//k pour faire tomber les Clues et a pour saovir s'il faut afficher une question
 	private static int numPlayer;
+	protected TrueTypeFont fontTitrePrincipal;
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
@@ -65,6 +69,7 @@ public class World extends BasicGameState{
 			enemyGen.add(new EnemyGenerator(2,1300+i*60,0+i*90,3000));
 			enemyGen.add(new EnemyGenerator(2,-50-i*100,0+i*90,3000));
 		}
+		fontTitrePrincipal=fontTitrePrincipal=fr.utils.FontUtils.chargerFont("font/geminaacad.ttf",Font.BOLD,40,false);
 	}
 	
 	@Override
@@ -75,7 +80,7 @@ public class World extends BasicGameState{
 	public static void reset(){
 		decor = new Decor(1);
 		nextScore=7000;
-		player = new Player(400, 400, 10);
+		player = new Player(Game.longueur/2, Game.hauteur-100, 10);
 		score= 0;
 		projectiles=new ArrayList<Projectile>();
 		clues=new ArrayList<Clue>();
@@ -97,13 +102,9 @@ public class World extends BasicGameState{
 			p.render(container, game, g);
 		for (Enemy p:enemies)
 			p.render(container, game, g);
-
-		g.drawString("nbr de projectiles= "+projectiles.size(), 1000, 680);
-		g.drawString("nbr d'ennemis= "+enemies.size(), 1000, 700);
-		
-		g.setColor(Color.yellow);
-		g.drawString("scove: "+score, 10, 10);
-		g.drawString("k: "+k, 10, 30);
+		g.setFont(fontTitrePrincipal);
+		g.setColor(Color.white);
+		g.drawString(""+score, Game.longueur-20-fontTitrePrincipal.getWidth(""+score), 10);
 	}
 
 	@Override

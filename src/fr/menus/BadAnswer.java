@@ -16,9 +16,6 @@ public class BadAnswer extends Menu{
 	
 	public BadAnswer(){
 		super();
-		menuTitle= "BAD ANSWER !!!";
-		
-		
 		margeMoins=50;
 		margePlus=100;
 		
@@ -31,8 +28,12 @@ public class BadAnswer extends Menu{
 		context=s;
 	}
 	
+	
+	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		super.enter(container, game);
+		titre= "BAD ANSWER !!!";
 		try {
 			background=new Image("sprites/badAnswer.png");
 		} catch (SlickException e) {
