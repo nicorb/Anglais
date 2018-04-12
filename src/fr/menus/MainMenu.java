@@ -12,16 +12,16 @@ import fr.world.World;
 public class MainMenu extends Menu {
 
 	public static int ID=1;
-	
-	
+
+
 	public MainMenu(){
 		super();
-		
+
 	}
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		
+
 		titre= "MAIN MENU";
 		try {
 			background=new Image("sprites/main_menu.png");
@@ -75,11 +75,9 @@ public class MainMenu extends Menu {
 					new FadeInTransition());
 			break;
 		case 5:
-			try{
-				fr.menus.AddingQuestion.main(null);;
-			}catch(Exception e){
-				fr.menus.AddingQuestion.main(null);
-			}
+			game.addState(new AddQuestionMenu());;
+			game.enterState(AddQuestionMenu.ID, new FadeOutTransition(),
+					new FadeInTransition());
 			break;
 		case 6:
 			System.exit(0);

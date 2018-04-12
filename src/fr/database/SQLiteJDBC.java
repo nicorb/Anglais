@@ -1,6 +1,10 @@
 package fr.database;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -20,7 +24,7 @@ public class SQLiteJDBC {
 		}
 	}
 
-	public static int addQuestion(String question,int answer,String clue1,String clue2,String clue3,String prop1,String prop2,String prop3,String prop4,String context){
+	public static int addQuestion(String question,int answer,String clue1,String clue2,String clue3,String prop1,String prop2,String prop3,String prop4,String context,String type){
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -32,7 +36,7 @@ public class SQLiteJDBC {
 			return 2;
 			}catch(Exception e){}
 			stmt = c.createStatement();
-			String sql ="INSERT INTO QUESTIONS (QUESTION,ANSWER,CLUE1,CLUE2,CLUE3,PROPOSITION1,PROPOSITION2,PROPOSITION3,PROPOSITION4,CONTEXT) VALUES ('"+question+"',"+answer+",'"+clue1+"','"+clue2+"','"+clue3+"','"+prop1+"','"+prop2+"','"+prop3+"','"+prop4+"','"+context+"')";
+			String sql ="INSERT INTO QUESTIONS (QUESTION,ANSWER,CLUE1,CLUE2,CLUE3,PROPOSITION1,PROPOSITION2,PROPOSITION3,PROPOSITION4,CONTEXT,TYPE) VALUES ('"+question+"',"+answer+",'"+clue1+"','"+clue2+"','"+clue3+"','"+prop1+"','"+prop2+"','"+prop3+"','"+prop4+"','"+context+"','"+type+"')";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();
@@ -79,7 +83,7 @@ public class SQLiteJDBC {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:datas.db");
 			stmt=c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM QUESTIONS WHERE ID="+ID);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM QUESTIONS WHERE rowid="+ID);
 			for (int i=1;i<12;i++){
 				result[i]=rs.getString(i);
 			}
@@ -183,5 +187,35 @@ public class SQLiteJDBC {
 		stmt.close();
 		c.close();
 	}
+	
+	
+	public static void addFromCSV(String file) {
+		try	{
+		   BufferedReader fichier_source = new BufferedReader(new FileReader(file));
+		   String chaine;
+		   int i = 1;
+		 
+		   while((chaine = fichier_source.readLine())!= null)
+		   {
+		         String[] tabChaine = chaine.split(",");
+		         //Tu effectues tes traitements avec les données contenues dans le tableau
+		         //La première information se trouve à l'indice 0
+		         addQuestion(tabChaine[0],Integer.parseInt(tabChaine[1]),tabChaine[2],tabChaine[3],tabChaine[4],tabChaine[5],tabChaine[6],tabChaine[7],tabChaine[8],tabChaine[9],tabChaine[10]);
+		         
+		   }
+		   fichier_source.close();                 
+		}
+		catch (FileNotFoundException e)
+		{
+		   System.out.println("Le fichier est introuvable !");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*public static void main(String args[]) {
+		String[] a = search();
+		System.out.println(a[5]);
+	}*/
 
 }

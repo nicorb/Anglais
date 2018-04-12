@@ -59,6 +59,7 @@ public class World extends BasicGameState{
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game){
+		this.game=game;
 		tailleBDD=fr.database.SQLiteJDBC.tailleBDD();
 		k=1;
 		question=(int) (Math.floor(Math.random()*tailleBDD)+1);
