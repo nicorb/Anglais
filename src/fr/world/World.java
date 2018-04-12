@@ -2,6 +2,7 @@ package fr.world;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -39,6 +40,7 @@ public class World extends BasicGameState{
 	private static ArrayList<EnemyGenerator> enemyGen;
 	private static GameContainer container;
 	private static StateBasedGame game;
+	private static String type;
 	//private static Decor decor;
 	private static boolean pause;
 	private static ArrayList<Clue> clues;
@@ -61,7 +63,8 @@ public class World extends BasicGameState{
 	public void enter(GameContainer container, StateBasedGame game){
 		tailleBDD=fr.database.SQLiteJDBC.tailleBDD();
 		k=1;
-		question=(int) (Math.floor(Math.random()*tailleBDD)+1);
+		ArrayList<Integer> listQuestion = fr.database.SQLiteJDBC.getQuestionByType(type);
+		question= listQuestion.get(new Random().nextInt(listQuestion.size()));
 		pause=false;
 		enemyGen.add(new EnemyGenerator(3,1300,-20,2000));
 		enemyGen.add(new EnemyGenerator(1,1200,500,1500));
@@ -223,5 +226,9 @@ public class World extends BasicGameState{
 	}
 	public static void setPlayer(int i) throws SlickException{
 		player.setImage(i);
+	}
+	
+	public static void setQuestionType(String t) throws SlickException {
+		type = t;
 	}
 }

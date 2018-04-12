@@ -61,7 +61,8 @@ public class MainMenu extends Menu {
 			game.addState(new BadAnswer());
 			game.addState(new GoodAnswer());
 			game.addState(new ChooseShip());
-			game.enterState(ChooseShip.ID, new FadeOutTransition(),
+			game.addState(new ChooseQuestionType());
+			game.enterState(ChooseQuestionType.ID, new FadeOutTransition(),
 					new FadeInTransition());
 			World.reset();
 			break;

@@ -1,4 +1,5 @@
 package fr.database;
+import fr.utils.Question;
 
 import java.io.File;
 import java.sql.*;
@@ -8,7 +9,7 @@ import fr.utils.Score;
 
 public class SQLiteJDBC {
 
-	// Accéder à la BD
+	// Accï¿½der ï¿½ la BD
 	public static void openDataBase() {
 		Connection c = null;
 		try {
@@ -182,6 +183,31 @@ public class SQLiteJDBC {
 		}
 		stmt.close();
 		c.close();
+	}
+	
+	public static ArrayList<Integer> getQuestionByType(String type){
+		Connection c = null;
+		Statement stmt = null;
+		ArrayList<Integer> q= new ArrayList<Integer>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:datas.db");
+			stmt=c.createStatement();
+			ResultSet rs=stmt.executeQuery("SELECT ID FROM QUESTIONS WHERE TYPE="+"'"+type+"'");
+			while(rs.next()){
+				q.add(rs.getInt("ID"));
+			}
+
+			rs.close();
+			stmt.close();
+			c.close();
+			
+		}catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+			System.out.println("Couldn't load the database");
+		}
+		return q;
 	}
 
 }

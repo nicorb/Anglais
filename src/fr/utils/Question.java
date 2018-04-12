@@ -1,7 +1,7 @@
 package fr.utils;
 
 public class Question {
-	private String question,clue1,clue2,clue3,ans1,ans2,ans3,ans4,context;
+	private String question,clue1,clue2,clue3,ans1,ans2,ans3,ans4,context,type;
 	private int numRealAns,id;
 	
 	public Question(){
@@ -67,5 +67,13 @@ public class Question {
 	
 	public void setID(int i){
 		id=i;
+	}
+	
+	public String getType(){
+		return this.type;
+	}
+	
+	public void setType(String t){
+		type = t;
 	}
 }
