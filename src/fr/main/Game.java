@@ -20,7 +20,7 @@ public class Game extends StateBasedGame {
 	public static final int DENSITE_Y = 32;
 	
 	public static void main(String[] args) throws SlickException {
-		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
+		//System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
 		AppGameContainer app = new AppGameContainer(new Game(),longueur,hauteur,false);
 		app.setTargetFrameRate(60);
 		app.setVSync(true);
@@ -34,8 +34,6 @@ public class Game extends StateBasedGame {
 
 	public Game() {
 		super("blabla");
-		
-		
 	}
 
 		

@@ -63,7 +63,7 @@ public class AddScoreMenu extends Menu{
 
 	@Override
 	public void keyPressed(int key, char c) {
-		if((c>='a' && c<='z')||(c>='Z' && c<='Z')||(c=='_' || c=='-')) {
+		if((c>='a' && c<='z')||(c>='A' && c<='Z')||(c=='_' || c=='-')) {
 			name+=c;
 		}
 		if(key==Input.KEY_BACK && name.length()>0) {

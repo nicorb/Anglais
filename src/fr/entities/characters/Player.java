@@ -68,8 +68,6 @@ public class Player extends Movable{
 		}
 		if(life<=0){
 			fr.menus.QuestionMenu.setClues(this);
-			System.out.println(fr.world.World.getScore()+"********************");
-			System.out.println(fr.world.World.getGame());
 			fr.world.World.getGame().addState(new AddScoreMenu(fr.world.World.getScore()));
 			fr.world.World.getGame().enterState(AddScoreMenu.ID);
 		}
