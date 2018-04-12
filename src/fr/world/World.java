@@ -63,8 +63,12 @@ public class World extends BasicGameState{
 	public void enter(GameContainer container, StateBasedGame game){
 		tailleBDD=fr.database.SQLiteJDBC.tailleBDD();
 		k=1;
-		ArrayList<Integer> listQuestion = fr.database.SQLiteJDBC.getQuestionByType(type);
-		question= listQuestion.get(new Random().nextInt(listQuestion.size()));
+		if(type != "All"){
+			ArrayList<Integer> listQuestion = fr.database.SQLiteJDBC.getQuestionByType(type);
+			question = listQuestion.get(new Random().nextInt(listQuestion.size()));
+		} else {
+			question = new Random().nextInt(fr.database.SQLiteJDBC.tailleBDD());
+		}
 		pause=false;
 		enemyGen.add(new EnemyGenerator(3,1300,-20,2000));
 		enemyGen.add(new EnemyGenerator(1,1200,500,1500));

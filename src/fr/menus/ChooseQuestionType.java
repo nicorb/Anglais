@@ -79,9 +79,11 @@ public class ChooseQuestionType extends Menu {
 		try {
 			if (selection == 1){
 				fr.world.World.setQuestionType(type1);
-			}else {
+			}else if (selection == 2) {
 				fr.world.World.setQuestionType(type2);
-			}			
+			} else {
+				fr.world.World.setQuestionType(type3);
+			}
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
