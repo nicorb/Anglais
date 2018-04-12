@@ -72,8 +72,7 @@ public class World extends BasicGameState{
 			question = new Random().nextInt(fr.database.SQLiteJDBC.tailleBDD());
 		}
 
-		ArrayList<Integer> listQuestion = fr.database.SQLiteJDBC.getQuestionByType(type);
-		question= listQuestion.get(new Random().nextInt(listQuestion.size()));
+	
 		pause=false;
 		enemyGen.add(new EnemyGenerator(3,1300,-20,2000));
 		enemyGen.add(new EnemyGenerator(1,1200,500,1500));

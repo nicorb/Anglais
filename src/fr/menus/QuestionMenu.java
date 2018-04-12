@@ -28,7 +28,7 @@ public class QuestionMenu extends Menu{
 		margeMoins = 300;
 		margePlus=500;
 		try {
-			background=new Image("sprites/main_menu.png");
+			background=new Image("sprites/QuestionTime.png");
 		} catch (SlickException e) {
 			System.out.println("main menu couldn't be loaded");
 		}
