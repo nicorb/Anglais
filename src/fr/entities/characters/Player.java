@@ -14,6 +14,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import fr.entities.Projectile;
 import fr.main.Game;
+import fr.menus.AddScoreMenu;
 import fr.menus.MainMenu;
 import fr.menus.QuestionMenu;
 import fr.utils.Movable;
@@ -67,7 +68,8 @@ public class Player extends Movable{
 		}
 		if(life<=0){
 			fr.menus.QuestionMenu.setClues(this);
-			fr.menus.ScorePopUp.main(fr.world.World.getScore(), null);
+			fr.world.World.getGame().addState(new AddScoreMenu(fr.world.World.getScore()));
+			fr.world.World.getGame().enterState(AddScoreMenu.ID);
 		}
 		if(System.currentTimeMillis()-lastShot>time)
 			fr.world.World.add(new Projectile(x+radius,y+radius,2,0,-1,true));
