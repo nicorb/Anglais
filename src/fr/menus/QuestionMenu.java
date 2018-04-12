@@ -74,7 +74,7 @@ public class QuestionMenu extends Menu{
 			questionSeen=false;
 			if(selection==Integer.parseInt(datas[2])){
 				World.upScore(1000);
-				World.setNextScore(World.getScore()+8000);
+				World.setNextScore(World.getScore()+4000);
 				items=new ArrayList<String>();
 				game.enterState(GoodAnswer.ID, new FadeOutTransition(), new FadeInTransition());
 			}else {

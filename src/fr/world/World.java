@@ -61,21 +61,27 @@ public class World extends BasicGameState{
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game){
+		this.game=game;
 		tailleBDD=fr.database.SQLiteJDBC.tailleBDD();
 		k=1;
+
 		if(type != "All"){
 			ArrayList<Integer> listQuestion = fr.database.SQLiteJDBC.getQuestionByType(type);
 			question = listQuestion.get(new Random().nextInt(listQuestion.size()));
 		} else {
 			question = new Random().nextInt(fr.database.SQLiteJDBC.tailleBDD());
 		}
+
+		ArrayList<Integer> listQuestion = fr.database.SQLiteJDBC.getQuestionByType(type);
+		question= listQuestion.get(new Random().nextInt(listQuestion.size()));
 		pause=false;
 		enemyGen.add(new EnemyGenerator(3,1300,-20,2000));
 		enemyGen.add(new EnemyGenerator(1,1200,500,1500));
-		for (int i=0;i<3;i++){
+		for (int i=0;i<2;i++){
 			enemyGen.add(new EnemyGenerator(2,1300+i*60,0+i*90,3000));
 			enemyGen.add(new EnemyGenerator(2,-50-i*100,0+i*90,3000));
 		}
+		
 		fontTitrePrincipal=fontTitrePrincipal=fr.utils.FontUtils.chargerFont("font/geminaacad.ttf",Font.BOLD,40,false);
 	}
 	
@@ -86,7 +92,7 @@ public class World extends BasicGameState{
 
 	public static void reset(){
 		decor = new Decor(1);
-		nextScore=7000;
+		nextScore=4000;
 		player = new Player(Game.longueur/2, Game.hauteur-100, 10);
 		score= 0;
 		projectiles=new ArrayList<Projectile>();
@@ -151,15 +157,15 @@ public class World extends BasicGameState{
 			
 
 
-			if(score > nextScore-6000 && k==1){
+			if(score > nextScore-3000 && k==1){
 				clues.add(new Clue((float) (Math.random()*1000+100),-50,1));
 				k+=1;
 			}
-			if(score > nextScore-4000 && k==2){
+			if(score > nextScore-2000 && k==2){
 				clues.add(new Clue((float) (Math.random()*1000+100),-50,2));
 				k+=1;
 			}
-			if(score > nextScore-2000 && k==3){
+			if(score > nextScore-1000 && k==3){
 				clues.add(new Clue((float) (Math.random()*1000+100),-50,3));
 				k+=1;
 			}

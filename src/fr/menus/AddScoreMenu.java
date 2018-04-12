@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -12,6 +13,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import fr.main.Game;
 import fr.utils.Score;
 
 public class AddScoreMenu extends Menu{
@@ -23,29 +25,30 @@ public class AddScoreMenu extends Menu{
 
 	public AddScoreMenu(int score) {
 		this.score=score;
-	}
-
-
-	@Override
-	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		super.enter(arg0, arg1);
 		name="";
 		try {
 			background=new Image("sprites/badAnswer.png");
 		} catch (SlickException e) {
 			System.out.println("main menu couldn't be loaded");
 		}
+		fontPhrases=fr.utils.FontUtils.chargerFont("font/neuropol.ttf",Font.BOLD,20,false);
+	}
+
+
+	@Override
+	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+		super.enter(arg0, arg1);
 	}
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics g) throws SlickException {
-
-		g.drawImage(background, 0, 0);
-
-		g.setFont(fontPhrases);
-		g.drawString(name, 640-fontPhrases.getWidth("Enter your name:"), 300);
-		g.drawString(name, 640-fontPhrases.getWidth(name), 400);
 		
+		g.drawImage(background, 0, 0);
+		g.setFont(fontTitrePrincipal);
+		g.drawString("Enter your name:",(Game.longueur-fontTitrePrincipal.getWidth("Enter your name:"))/2 , 70);
+		g.setFont(fontPhrases);
+		g.drawString("Name: "+name, 640-fontPhrases.getWidth(name)/2, 400);
+		//g.drawString("Enter your name", x, y);
 	}
 
 	@Override
@@ -60,8 +63,11 @@ public class AddScoreMenu extends Menu{
 
 	@Override
 	public void keyPressed(int key, char c) {
-		if((key>='a' && key<='z')||(key>='Z' && key<='Z')||(key=='_' || key=='-')) {
+		if((c>='a' && c<='z')||(c>='A' && c<='Z')||(c=='_' || c=='-')) {
 			name+=c;
+		}
+		if(key==Input.KEY_BACK && name.length()>0) {
+			name=name.substring(0, name.length()-1);
 		}
 		if(key==Input.KEY_ENTER) {
 			ArrayList<Score> scores = fr.database.SQLiteJDBC.getScore();
